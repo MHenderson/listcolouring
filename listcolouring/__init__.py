@@ -51,6 +51,20 @@ def first_permissible_or_none(G, u, v):
         choice = None
     return(choice)
 
+def first_permissible_or_none_node(G, u):
+    """ Returns the first element of A = P - X if A is non-empty otherwise returns None.
+        X is the list of colours on neighbours of u.
+        P is the list of permissible colours for node u.
+    """
+    X = colours_on_neighbours(G, u)
+    P = set(G.nodes[u]["permissible"])
+    choices = P - X
+    if(len(choices) > 0):
+        choice = list(choices)[0]
+    else:
+        choice = None
+    return(choice)
+
 def greedy_list_edge_colouring(G):
     """Assign the first permissible colour to every edge (or None if all permissible
     colours already used on incident edges)."""
@@ -65,4 +79,4 @@ def print_list_edge_colouring(G):
             perm = eattr['permissible']
             col = eattr['colour']
             print(f"({n}, {nbr}, {perm}, {col})")
-        
+
